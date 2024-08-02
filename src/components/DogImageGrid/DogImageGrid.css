@@ -1,0 +1,18 @@
+h2.breed-text {
+  text-align: center;
+  margin: 0;
+  margin-bottom: 1em;
+}
+
+.images {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1em;
+  max-width: 100%;
+}
+
+img {
+  width: 100%;
+  height: auto;
+  border-radius: 0.5em;
+}

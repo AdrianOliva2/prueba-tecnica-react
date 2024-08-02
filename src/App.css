@@ -1,0 +1,6 @@
+div.container {
+  display: flex;
+  place-items: center;
+  flex-direction: column;
+  gap: 1em;
+}

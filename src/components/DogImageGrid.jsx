@@ -1,10 +1,9 @@
-import './DogImageGrid.css'
-import useDogImages from '../../hook/useDogImages'
-import useDogBreedContext from '../../hook/useDogBreedContext'
+import useDogImages from '../hook/useDogImages'
 import { useState } from 'react'
 import { createPortal } from 'react-dom'
-import ImageModal from '../ImageModal/ImageModal'
-import ErrorAlert from '../Alert/ErrorAlert'
+import ImageModal from './ImageModal'
+import { useDogBreedContext } from '../context/DogBreedContext'
+import ErrorAlert from './ErrorAlert'
 
 export default function DogImageGrid() {
   const { dogImages, loading, error } = useDogImages()
@@ -38,7 +37,7 @@ export default function DogImageGrid() {
                     key={dogImage}
                     src={dogImage}
                     alt={`Perro de la raza ${selectedDogBreed}`}
-                    className='w-64 bg-black/70 h-48 object-cover rounded-lg transition-transform transform scale-100 group-hover:scale-105 cursor-pointer border-4 border-black/70 shadow-lg'
+                    className='w-64 bg-black/70 h-48 object-cover rounded-lg transition-transform transform scale-100 hover:scale-105 cursor-pointer border-4 border-black/70 shadow-lg'
                     onClick={() => handleClickImage(dogImage)}
                   />
                 )

@@ -1,5 +1,3 @@
-import './ImageModal.css'
-
 export default function ImageModal({ dogImage, onClose }) {
   const handleClick = (e) => {
     if (e.target.id !== 'img-modal') {

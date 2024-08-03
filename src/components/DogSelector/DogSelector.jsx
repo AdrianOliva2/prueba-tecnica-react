@@ -2,9 +2,10 @@ import './DogSelector.css'
 import useDogBreeds from '../../hook/useDogBreeds'
 import Select from '../Select/Select'
 import useDogBreedContext from '../../hook/useDogBreedContext'
+import ErrorAlert from '../Alert/ErrorAlert'
 
 export default function DogSelector() {
-  const { dogBreeds } = useDogBreeds()
+  const { dogBreeds, error } = useDogBreeds()
   const { context } = useDogBreedContext()
   const { selectedDogBreed, setSelectedDogBreed } = context
 
@@ -29,7 +30,9 @@ export default function DogSelector() {
   const isSubBreedActive =
     dogBreeds?.[selectedDogBreed]?.length > 1 || selectedDogBreed.includes('-')
 
-  return (
+  return error ? (
+    <ErrorAlert error={error} />
+  ) : (
     <form className='max-w-sm mx-auto'>
       <div className='flex justify-center xl:flex-row lg:flex-row md:flex-row sm:lg:flex-row flex-col'>
         <Select aria-label='breed' onChange={handleBreedChange}>

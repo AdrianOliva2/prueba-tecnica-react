@@ -1,10 +1,4 @@
 import './ImageModal.css'
-import PropTypes from 'prop-types'
-
-ImageModal.propTypes = {
-  dogImage: PropTypes.string,
-  onClose: PropTypes.func
-}
 
 export default function ImageModal({ dogImage, onClose }) {
   const handleClick = (e) => {

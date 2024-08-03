@@ -1,10 +1,3 @@
-import PropTypes from 'prop-types'
-
-Select.propTypes = {
-  children: PropTypes.node,
-  props: PropTypes.any
-}
-
 export default function Select({ children, ...props }) {
   return (
     <select

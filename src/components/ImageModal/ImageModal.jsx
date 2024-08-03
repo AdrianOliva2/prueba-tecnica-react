@@ -26,7 +26,12 @@ export default function ImageModal({ dogImage, onClose }) {
         &times;
       </span>
       <div className='m-6'>
-        <img id='img-modal' src={dogImage} alt='Perro' />
+        <img
+          id='img-modal'
+          src={dogImage}
+          alt='Perro'
+          className='max-w-[800px] max-h-[600px]'
+        />
       </div>
     </div>
   )

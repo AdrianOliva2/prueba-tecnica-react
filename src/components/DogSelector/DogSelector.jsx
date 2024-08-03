@@ -1,5 +1,5 @@
 import './DogSelector.css'
-import { useDogBreeds } from '../../hook/useDogBreeds'
+import useDogBreeds from '../../hook/useDogBreeds'
 import Select from '../Select/Select'
 import useDogBreedContext from '../../hook/useDogBreedContext'
 

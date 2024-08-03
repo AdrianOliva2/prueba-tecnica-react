@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { getDogBreeds } from '../service/dogBreeds'
 
-export const useDogBreeds = () => {
+export default function useDogBreeds() {
   const [dogBreeds, setDogBreeds] = useState({})
 
   useEffect(() => {

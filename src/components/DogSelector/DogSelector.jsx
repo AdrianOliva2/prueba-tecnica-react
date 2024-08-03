@@ -1,18 +1,22 @@
 import './DogSelector.css'
-import { useContext, useId } from 'react'
-import { useDogBreeds } from '../../../hook/useDogBreeds'
-import { DogBreedContext } from '../../App'
+import { useDogBreeds } from '../../hook/useDogBreeds'
+import Select from '../Select/Select'
+import useDogBreedContext from '../../hook/useDogBreedContext'
 
-export function DogSelector() {
+export default function DogSelector() {
   const { dogBreeds } = useDogBreeds()
-  const { selectedDogBreed, setSelectedDogBreed } = useContext(DogBreedContext)
-  const id = useId()
+  const { context } = useDogBreedContext()
+  const { selectedDogBreed, setSelectedDogBreed } = context
 
   const handleBreedChange = (event) => {
     setSelectedDogBreed(event.target.value)
   }
 
   const handleSubBreedChange = (event) => {
+    if (event.target.value === '') {
+      setSelectedDogBreed(selectedDogBreed.split('-')[0])
+      return
+    }
     if (selectedDogBreed.includes('-')) {
       const [breed] = selectedDogBreed.split('-')
       const newBreed = `${breed}-${event.target.value}`
@@ -22,48 +26,43 @@ export function DogSelector() {
     }
   }
 
-  const isSubBreedActive = () => {
-    if (
-      (dogBreeds &&
-        selectedDogBreed !== '' &&
-        selectedDogBreed.includes('-')) ||
-      (dogBreeds[selectedDogBreed] && dogBreeds[selectedDogBreed].length > 2)
-    ) {
-      return true
-    }
-  }
+  const isSubBreedActive =
+    dogBreeds?.[selectedDogBreed]?.length > 1 || selectedDogBreed.includes('-')
 
   return (
-    <form className='form'>
-      <select onChange={handleBreedChange}>
-        <option value=''>Selecciona una raza de perro</option>
-        {Object.keys(dogBreeds).map((dogBreed) => {
-          return (
-            <option key={`${id}-${dogBreed}`} value={dogBreed}>
-              {dogBreed}
-            </option>
-          )
-        })}
-      </select>
-      {isSubBreedActive() && (
-        <select onChange={handleSubBreedChange}>
-          {!selectedDogBreed.includes('-')
-            ? dogBreeds[selectedDogBreed].map((subBreed) => {
-                return (
-                  <option key={`${id}-${subBreed}`} value={subBreed}>
-                    {subBreed}
-                  </option>
-                )
-              })
-            : dogBreeds[selectedDogBreed.split('-')[0]].map((subBreed) => {
-                return (
-                  <option key={`${id}-${subBreed}`} value={subBreed}>
-                    {subBreed}
-                  </option>
-                )
-              })}
-        </select>
-      )}
+    <form className='max-w-sm mx-auto'>
+      <div className='flex justify-center xl:flex-row lg:flex-row md:flex-row sm:lg:flex-row flex-col'>
+        <Select aria-label='breed' onChange={handleBreedChange}>
+          <option value=''>Selecciona una raza de perro</option>
+          {Object.keys(dogBreeds).map((dogBreed) => {
+            return (
+              <option key={dogBreed} value={dogBreed}>
+                {dogBreed}
+              </option>
+            )
+          })}
+        </Select>
+        {isSubBreedActive && (
+          <Select aria-label='subBreed' onChange={handleSubBreedChange}>
+            <option value=''>Selecciona una subraza de perro</option>
+            {!selectedDogBreed.includes('-')
+              ? dogBreeds[selectedDogBreed].map((subBreed) => {
+                  return (
+                    <option key={subBreed} value={subBreed}>
+                      {subBreed}
+                    </option>
+                  )
+                })
+              : dogBreeds[selectedDogBreed.split('-')[0]].map((subBreed) => {
+                  return (
+                    <option key={subBreed} value={subBreed}>
+                      {subBreed}
+                    </option>
+                  )
+                })}
+          </Select>
+        )}
+      </div>
     </form>
   )
 }

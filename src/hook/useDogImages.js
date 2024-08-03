@@ -1,9 +1,10 @@
-import { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { getDogImages } from '../service/dogImages'
-import { DogBreedContext } from '../src/App'
+import useDogBreedContext from './useDogBreedContext'
 
-export function useDogImages() {
-  const { selectedDogBreed } = useContext(DogBreedContext)
+export default function useDogImages() {
+  const { context } = useDogBreedContext()
+  const { selectedDogBreed } = context
   const [dogImages, setDogImages] = useState([])
 
   useEffect(() => {

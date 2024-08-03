@@ -1,26 +1,25 @@
 import './App.css'
-import { useState } from 'react'
-import { DogImageGrid } from './components/DogImageGrid/DogImageGrid'
-import { DogSelector } from './components/DogSelector/DogSelector'
-import { createContext } from 'react'
-
-export const DogBreedContext = createContext(null)
+import DogImageGrid from './components/DogImageGrid/DogImageGrid'
+import DogSelector from './components/DogSelector/DogSelector'
+import Footer from './components/Layout/Footer'
+import Header from './components/Layout/Header'
 
 function App() {
-  const [selectedDogBreed, setSelectedDogBreed] = useState('')
-
+  const modal = document.getElementById('modal')
+  if (modal) {
+    modal.addEventListener('keydown', (e) => console.log(e))
+  }
   return (
-    <DogBreedContext.Provider value={{ selectedDogBreed, setSelectedDogBreed }}>
-      <div className='container'>
-        <header>
-          <h1>App de perros</h1>
-          <DogSelector setSelectedDogBreed={setSelectedDogBreed} />
-        </header>
-        <main>
-          <DogImageGrid />
-        </main>
-      </div>
-    </DogBreedContext.Provider>
+    <div className='flex flex-col justify-between w-full h-min-vh bg-gradient-to-b from-cyan-100 to-pink-50'>
+      <Header />
+
+      <main className='flex-1'>
+        <DogSelector />
+        <DogImageGrid />
+      </main>
+
+      <Footer />
+    </div>
   )
 }
 
